@@ -11,14 +11,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun SettingScreen() {
+fun SettingScreen(navigateToHome: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Text("Setting Screen", style = MaterialTheme.typography.titleLarge)
-        Button(onClick = {}) {
+        Button(onClick = navigateToHome) {
             Text("Navigate to Home")
         }
     }

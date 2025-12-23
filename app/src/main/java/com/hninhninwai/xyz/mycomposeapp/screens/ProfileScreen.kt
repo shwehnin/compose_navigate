@@ -10,15 +10,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun ProfileScreen() {
+fun ProfileScreen(id: Int, showDetails: Boolean, navigateToSetting: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text("Profile ID : ")
-        Text("Show Details : ")
-        Button(onClick = {}) {
+        Text("Profile ID : $id")
+        Text("Show Details : $showDetails")
+        Button(onClick = navigateToSetting) {
             Text("Go to Setting")
         }
     }

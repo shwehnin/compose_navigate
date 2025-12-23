@@ -11,17 +11,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navigateToProfile: (Int, Boolean) -> Unit, navigateToSetting: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Text("Home Screen", style = MaterialTheme.typography.titleLarge)
-        Button(onClick = {}) {
+        Button(onClick = {
+            navigateToProfile(88, true)
+        }) {
             Text("Profile")
         }
-        Button(onClick = {}) {
+        Button(onClick = navigateToSetting) {
             Text("Setting")
         }
     }
