@@ -10,7 +10,6 @@ import androidx.navigation.navArgument
 import com.hninhninwai.xyz.mycomposeapp.screens.HomeScreen
 import com.hninhninwai.xyz.mycomposeapp.screens.ProfileScreen
 import com.hninhninwai.xyz.mycomposeapp.screens.SettingScreen
-import kotlin.reflect.typeOf
 
 @Composable
 fun NavGraph(navController: NavHostController) {
@@ -25,7 +24,7 @@ fun addHomeScreen(navController: NavHostController, navGraphBuilder: NavGraphBui
     navGraphBuilder.composable(route = NavRoute.Home.path) {
         HomeScreen(navigateToProfile = { id, showDetails ->
             navController.navigate(
-                NavRoute.Profile.path.plus("/$id/$showDetails")
+                NavRoute.Profile.createRoute(88, false)
             )
         }, navigateToSetting = { navController.navigate(NavRoute.Setting.path) })
     }
@@ -34,16 +33,16 @@ fun addHomeScreen(navController: NavHostController, navGraphBuilder: NavGraphBui
 fun addProfileScreen(navController: NavHostController, navGraphBuilder: NavGraphBuilder) {
     navGraphBuilder.composable(
         route = NavRoute.Profile.path.plus("/{id}/{showDetails}"),
-        arguments = listOf(navArgument(NavRoute.Profile.id) {
+        arguments = listOf(navArgument("id") {
             type = NavType.IntType
-        }, navArgument(NavRoute.Profile.showDetails) {
+        }, navArgument("showDetails") {
             type = NavType.BoolType
         })
     ) { navBackStackEntry ->
         val args = navBackStackEntry.arguments
         ProfileScreen(
-            args?.getInt(NavRoute.Profile.id)!!,
-            args.getBoolean(NavRoute.Profile.showDetails),
+            args?.getInt("id")!!,
+            args.getBoolean("showDetails"),
             navigateToSetting = { navController.navigate(NavRoute.Setting.path) })
     }
 }
