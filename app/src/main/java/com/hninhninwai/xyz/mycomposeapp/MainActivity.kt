@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.Scaffold
 import androidx.navigation.compose.rememberNavController
+import com.hninhninwai.xyz.mycomposeapp.navigations.BottomNavBar
 import com.hninhninwai.xyz.mycomposeapp.navigations.BottomNavigationBar
 import com.hninhninwai.xyz.mycomposeapp.navigations.NavGraph
 import com.hninhninwai.xyz.mycomposeapp.navigations.Navigations
@@ -23,7 +24,11 @@ class MainActivity : ComponentActivity() {
 //                NavGraph(navController = navController)
 //            }
             val navController = rememberNavController()
-            Navigations(navController = navController)
+            Scaffold(bottomBar = {
+                BottomNavBar(navController = navController)
+            }) {
+                Navigations(navController = navController)
+            }
         }
     }
 }

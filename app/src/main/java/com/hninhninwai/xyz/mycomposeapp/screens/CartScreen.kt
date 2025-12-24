@@ -18,7 +18,7 @@ fun CartScreen(navigateToCategory: () -> Unit) {
     ) {
         Text("Cart")
         Button(onClick = navigateToCategory) {
-            Text("Go to Product")
+            Text("Go to Category")
         }
     }
 }
