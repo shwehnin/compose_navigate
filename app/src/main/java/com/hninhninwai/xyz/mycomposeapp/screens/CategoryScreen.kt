@@ -10,15 +10,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun CategoryScreen(navigateToProduct: (Int, Boolean) -> Unit, navigateToCart: () -> Unit) {
+fun CategoryScreen(navigateToOrder: (Int, Boolean) -> Unit, navigateToCart: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Text("Categories")
-        Button(onClick = { navigateToProduct(20, true) }) {
-            Text("Go to Product")
+        Button(onClick = { navigateToOrder(20, true) }) {
+            Text("Go to Order")
         }
         Button(onClick = navigateToCart) {
             Text("Go to Cart")

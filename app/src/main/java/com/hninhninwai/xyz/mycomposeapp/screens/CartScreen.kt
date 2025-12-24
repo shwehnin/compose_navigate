@@ -10,14 +10,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun CartScreen(navigateToProduct: () -> Unit) {
+fun CartScreen(navigateToCategory: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Text("Cart")
-        Button(onClick = navigateToProduct) {
+        Button(onClick = navigateToCategory) {
             Text("Go to Product")
         }
     }

@@ -9,6 +9,8 @@ import androidx.compose.material3.Scaffold
 import androidx.navigation.compose.rememberNavController
 import com.hninhninwai.xyz.mycomposeapp.navigations.BottomNavigationBar
 import com.hninhninwai.xyz.mycomposeapp.navigations.NavGraph
+import com.hninhninwai.xyz.mycomposeapp.navigations.Navigations
+import com.hninhninwai.xyz.mycomposeapp.screens.CategoryScreen
 
 class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -16,10 +18,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+//            val navController = rememberNavController()
+//            Scaffold(bottomBar = { BottomNavigationBar(navController = navController) }) {
+//                NavGraph(navController = navController)
+//            }
             val navController = rememberNavController()
-            Scaffold(bottomBar = { BottomNavigationBar(navController = navController) }) {
-                NavGraph(navController = navController)
-            }
+            Navigations(navController = navController)
         }
     }
 }
