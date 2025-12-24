@@ -2,6 +2,7 @@ package com.hninhninwai.xyz.mycomposeapp.screens.constraint_layout
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
@@ -9,11 +10,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 
 @Composable
 fun ConstraintLayoutScreen() {
-    ConstraintLayout(modifier = Modifier.fillMaxWidth()) {
+    ConstraintLayout(modifier = Modifier.fillMaxSize()) {
         val (box1, box2, text) = createRefs()
 
         val guideline1 = createGuidelineFromStart(0.05f)
@@ -49,5 +51,7 @@ fun ConstraintLayoutScreen() {
                 start.linkTo(barrier1, margin = 16.dp)
             },
         )
+
+        createVerticalChain(box1, box2, chainStyle = ChainStyle.Spread)
     }
 }
