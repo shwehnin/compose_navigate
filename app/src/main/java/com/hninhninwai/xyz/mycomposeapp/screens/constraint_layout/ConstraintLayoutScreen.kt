@@ -16,7 +16,9 @@ fun ConstraintLayoutScreen() {
     ConstraintLayout(modifier = Modifier.fillMaxWidth()) {
         val (box1, box2, text) = createRefs()
 
-        val guideline1 = createGuidelineFromStart(0.15f)
+        val guideline1 = createGuidelineFromStart(0.05f)
+
+        val barrier1 = createEndBarrier(box1, box2)
 
         Box(
             modifier = Modifier
@@ -30,7 +32,7 @@ fun ConstraintLayoutScreen() {
 
         Box(
             modifier = Modifier
-                .size(250.dp)
+                .size(50.dp)
                 .background(color = Color.Green)
                 .constrainAs(
                     box2
@@ -44,7 +46,7 @@ fun ConstraintLayoutScreen() {
             "Hello Constraint Layout",
             modifier = Modifier.constrainAs(text) {
                 top.linkTo(box2.bottom, margin = 16.dp)
-                start.linkTo(guideline1)
+                start.linkTo(barrier1, margin = 16.dp)
             },
         )
     }
