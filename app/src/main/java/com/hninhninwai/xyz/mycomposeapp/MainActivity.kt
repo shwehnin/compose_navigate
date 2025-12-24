@@ -12,6 +12,7 @@ import com.hninhninwai.xyz.mycomposeapp.navigations.BottomNavigationBar
 import com.hninhninwai.xyz.mycomposeapp.navigations.NavGraph
 import com.hninhninwai.xyz.mycomposeapp.navigations.Navigations
 import com.hninhninwai.xyz.mycomposeapp.screens.CategoryScreen
+import com.hninhninwai.xyz.mycomposeapp.screens.constraint_layout.ConstraintLayoutScreen
 
 class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -23,12 +24,13 @@ class MainActivity : ComponentActivity() {
 //            Scaffold(bottomBar = { BottomNavigationBar(navController = navController) }) {
 //                NavGraph(navController = navController)
 //            }
-            val navController = rememberNavController()
-            Scaffold(bottomBar = {
-                BottomNavBar(navController = navController)
-            }) {
-                Navigations(navController = navController)
-            }
+//            val navController = rememberNavController()
+//            Scaffold(bottomBar = {
+//                BottomNavBar(navController = navController)
+//            }) {
+//                Navigations(navController = navController)
+//            }
+            ConstraintLayoutScreen()
         }
     }
 }

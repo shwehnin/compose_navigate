@@ -58,5 +58,8 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     val nav_version = "2.9.6"
 
+    // Navigation
     implementation("androidx.navigation:navigation-compose:$nav_version")
+    // Constraint Layout
+    implementation("androidx.constraintlayout:constraintlayout-compose:1.1.1")
 }
