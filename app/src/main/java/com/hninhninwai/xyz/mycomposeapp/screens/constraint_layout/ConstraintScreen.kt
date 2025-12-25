@@ -20,7 +20,7 @@ fun ConstraintScreen() {
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ) {
-        val (gradientBg, profileImg, notificationImg) = createRefs()
+        val (gradientBg, profileImg, notificationImg, welcomeText, questionText, joinNow, courseImg) = createRefs()
 
         // Guideline
         val horizontalGuideline1 = createGuidelineFromTop(0.45f)
@@ -50,6 +50,31 @@ fun ConstraintScreen() {
         NotificationIcon(modifier = Modifier.constrainAs(notificationImg) {
             top.linkTo(profileImg.top)
             bottom.linkTo(profileImg.bottom)
+        })
+
+        WelcomeText(modifier = Modifier.constrainAs(welcomeText) {
+            top.linkTo(profileImg.bottom, margin = 20.dp)
+            start.linkTo(startGuideline)
+        })
+
+        QuestionText(modifier = Modifier.constrainAs(questionText) {
+            top.linkTo(welcomeText.bottom)
+            start.linkTo(welcomeText.start)
+        })
+
+        JoinNow(modifier = Modifier.constrainAs(joinNow) {
+            top.linkTo(questionText.bottom, margin = 32.dp)
+            start.linkTo(questionText.start)
+            end.linkTo(questionText.end)
+        }, onClick = {})
+
+        CoursesImage(modifier = Modifier.constrainAs(courseImg) {
+            bottom.linkTo(horizontalGuideline1, margin = 8.dp)
+            end.linkTo(endGuideline)
+//            start.linkTo(joinNow.end, margin = 8.dp)
+            top.linkTo(joinNow.bottom)
+            height = Dimension.fillToConstraints
+            width = Dimension.value(200.dp)
         })
     }
 }
