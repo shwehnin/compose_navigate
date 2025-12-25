@@ -20,7 +20,7 @@ fun ConstraintScreen() {
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ) {
-        val (gradientBg, profileImg, notificationImg, welcomeText, questionText, joinNow, courseImg, myCard) = createRefs()
+        val (gradientBg, profileImg, notificationImg, welcomeText, questionText, joinNow, courseImg, myCard, textCourses, androidCourseImg, javaCourseImg, pythonCourseImg, androidText, javaText, pythonText) = createRefs()
 
         // Guideline
         val horizontalGuideline1 = createGuidelineFromTop(0.45f)
@@ -84,6 +84,48 @@ fun ConstraintScreen() {
             bottom.linkTo(parent.bottom)
             width = Dimension.fillToConstraints
             height = Dimension.fillToConstraints
+        })
+
+        TextOurCourses(modifier = Modifier.constrainAs(textCourses) {
+            top.linkTo(myCard.top, margin = 16.dp)
+            start.linkTo(myCard.start, margin = 16.dp)
+        })
+
+        createHorizontalChain(
+            androidCourseImg,
+            javaCourseImg,
+            pythonCourseImg,
+            chainStyle = ChainStyle.Spread
+        )
+
+        AndroidCourseImage(modifier = Modifier.constrainAs(androidCourseImg) {
+            top.linkTo(textCourses.bottom, margin = 16.dp)
+        })
+        JavaCourseImage(modifier = Modifier.constrainAs(javaCourseImg) {
+            top.linkTo(androidCourseImg.top)
+            bottom.linkTo(androidCourseImg.bottom)
+        })
+        PythonCourseImage(modifier = Modifier.constrainAs(pythonCourseImg) {
+            top.linkTo(androidCourseImg.top)
+            bottom.linkTo(androidCourseImg.bottom)
+        })
+
+        AndroidText(modifier = Modifier.constrainAs(androidText) {
+            top.linkTo(androidCourseImg.bottom, margin = 12.dp)
+            start.linkTo(androidCourseImg.start)
+            end.linkTo(androidCourseImg.end)
+        })
+
+        JavaText(modifier = Modifier.constrainAs(javaText) {
+            top.linkTo(javaCourseImg.bottom, margin = 12.dp)
+            start.linkTo(javaCourseImg.start)
+            end.linkTo(javaCourseImg.end)
+        })
+
+        PythonText(modifier = Modifier.constrainAs(pythonText) {
+            top.linkTo(pythonCourseImg.bottom, margin = 12.dp)
+            start.linkTo(pythonCourseImg.start)
+            end.linkTo(pythonCourseImg.end)
         })
     }
 }
