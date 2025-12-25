@@ -7,6 +7,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 
@@ -18,8 +20,9 @@ fun ConstraintScreen() {
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ) {
-        val (gradientBg) = createRefs()
+        val (gradientBg, profileImg, notificationImg) = createRefs()
 
+        // Guideline
         val horizontalGuideline1 = createGuidelineFromTop(0.45f)
 
         GradientBackground(
@@ -32,5 +35,21 @@ fun ConstraintScreen() {
                 height = Dimension.fillToConstraints
             },
         )
+
+        val topGuideline = createGuidelineFromTop(16.dp)
+        val startGuideline = createGuidelineFromStart(16.dp)
+        val endGuideline = createGuidelineFromEnd(16.dp)
+
+        // Chain
+        createHorizontalChain(profileImg, notificationImg, chainStyle = ChainStyle.SpreadInside)
+
+        ProfileImage(modifier = Modifier.constrainAs(profileImg) {
+            top.linkTo(topGuideline)
+        })
+
+        NotificationIcon(modifier = Modifier.constrainAs(notificationImg) {
+            top.linkTo(profileImg.top)
+            bottom.linkTo(profileImg.bottom)
+        })
     }
 }
