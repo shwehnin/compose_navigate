@@ -20,7 +20,7 @@ fun ConstraintScreen() {
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ) {
-        val (gradientBg, profileImg, notificationImg, welcomeText, questionText, joinNow, courseImg) = createRefs()
+        val (gradientBg, profileImg, notificationImg, welcomeText, questionText, joinNow, courseImg, myCard) = createRefs()
 
         // Guideline
         val horizontalGuideline1 = createGuidelineFromTop(0.45f)
@@ -53,7 +53,7 @@ fun ConstraintScreen() {
         })
 
         WelcomeText(modifier = Modifier.constrainAs(welcomeText) {
-            top.linkTo(profileImg.bottom, margin = 20.dp)
+            top.linkTo(profileImg.bottom, margin = 16.dp)
             start.linkTo(startGuideline)
         })
 
@@ -63,18 +63,27 @@ fun ConstraintScreen() {
         })
 
         JoinNow(modifier = Modifier.constrainAs(joinNow) {
-            top.linkTo(questionText.bottom, margin = 32.dp)
+            top.linkTo(questionText.bottom, margin = 16.dp)
             start.linkTo(questionText.start)
             end.linkTo(questionText.end)
         }, onClick = {})
 
         CoursesImage(modifier = Modifier.constrainAs(courseImg) {
-            bottom.linkTo(horizontalGuideline1, margin = 8.dp)
+            bottom.linkTo(horizontalGuideline1, margin = 36.dp)
             end.linkTo(endGuideline)
 //            start.linkTo(joinNow.end, margin = 8.dp)
             top.linkTo(joinNow.bottom)
             height = Dimension.fillToConstraints
             width = Dimension.value(200.dp)
+        })
+
+        MyCard(modifier = Modifier.constrainAs(myCard) {
+            top.linkTo(horizontalGuideline1, margin = (-32).dp)
+            start.linkTo(parent.start)
+            end.linkTo(parent.end)
+            bottom.linkTo(parent.bottom)
+            width = Dimension.fillToConstraints
+            height = Dimension.fillToConstraints
         })
     }
 }
