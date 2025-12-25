@@ -20,8 +20,9 @@ fun ConstraintScreen() {
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ) {
-        val (gradientBg, profileImg, notificationImg, welcomeText, questionText, joinNow, courseImg, myCard, textCourses, androidCourseImg, javaCourseImg, pythonCourseImg, androidText, javaText, pythonText) = createRefs()
+        val (gradientBg, profileImg, notificationImg, welcomeText, questionText, joinNow, courseImg, myCard, textCourses, androidCourseImg, javaCourseImg, pythonCourseImg, androidText, javaText, pythonText, latestLessonText) = createRefs()
 
+        val (seeAllText, lessonCard) = createRefs()
         // Guideline
         val horizontalGuideline1 = createGuidelineFromTop(0.45f)
 
@@ -92,10 +93,7 @@ fun ConstraintScreen() {
         })
 
         createHorizontalChain(
-            androidCourseImg,
-            javaCourseImg,
-            pythonCourseImg,
-            chainStyle = ChainStyle.Spread
+            androidCourseImg, javaCourseImg, pythonCourseImg, chainStyle = ChainStyle.Spread
         )
 
         AndroidCourseImage(modifier = Modifier.constrainAs(androidCourseImg) {
@@ -126,6 +124,24 @@ fun ConstraintScreen() {
             top.linkTo(pythonCourseImg.bottom, margin = 12.dp)
             start.linkTo(pythonCourseImg.start)
             end.linkTo(pythonCourseImg.end)
+        })
+
+        LatestLessonText(modifier = Modifier.constrainAs(latestLessonText) {
+            top.linkTo(androidText.bottom, margin = 20.dp)
+            start.linkTo(startGuideline)
+        })
+
+        SeeAllText(modifier = Modifier.constrainAs(seeAllText) {
+            top.linkTo(latestLessonText.top)
+            end.linkTo(endGuideline)
+        })
+
+        LessonCard(modifier = Modifier.constrainAs(lessonCard) {
+            top.linkTo(latestLessonText.bottom, margin = 16.dp)
+            start.linkTo(startGuideline)
+            end.linkTo(endGuideline)
+            width = Dimension.fillToConstraints
+            height = Dimension.wrapContent
         })
     }
 }
