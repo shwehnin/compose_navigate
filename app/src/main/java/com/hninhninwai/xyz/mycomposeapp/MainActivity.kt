@@ -13,6 +13,7 @@ import com.hninhninwai.xyz.mycomposeapp.navigations.NavGraph
 import com.hninhninwai.xyz.mycomposeapp.navigations.Navigations
 import com.hninhninwai.xyz.mycomposeapp.screens.CategoryScreen
 import com.hninhninwai.xyz.mycomposeapp.screens.constraint_layout.ConstraintLayoutScreen
+import com.hninhninwai.xyz.mycomposeapp.screens.constraint_layout.ConstraintScreen
 
 class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -30,7 +31,8 @@ class MainActivity : ComponentActivity() {
 //            }) {
 //                Navigations(navController = navController)
 //            }
-            ConstraintLayoutScreen()
+//            ConstraintLayoutScreen()
+            ConstraintScreen()
         }
     }
 }
