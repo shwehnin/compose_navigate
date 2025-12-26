@@ -9,6 +9,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,21 +27,49 @@ fun DisplayDialog(viewModel: NoteViewModel, showDialog: Boolean, onDismiss: () -
     var description by remember { mutableStateOf("") }
     var selectedColor by remember { mutableStateOf(Color.Black) }
 
+    var titleError by remember { mutableStateOf(false) }
+    var descriptionError by remember { mutableStateOf(false) }
+
+    LaunchedEffect(showDialog) {
+        if (!showDialog) {
+            title = ""
+            description = ""
+            selectedColor = Color.Black
+            titleError = false
+            descriptionError = false
+        }
+    }
+
     if (showDialog) {
         AlertDialog(onDismissRequest = onDismiss, confirmButton = {
             Button(
                 onClick = {
-                    var note = Note(
-                        id = 0,
-                        title = title,
-                        description = description,
-                        color = selectedColor.toArgb()
-                    )
+                    titleError = false
+                    descriptionError = false
+                    var hasError = false
+
+                    if (title.isEmpty() || title.isBlank()) {
+                        titleError = true
+                        hasError = true
+                    }
+                    if (description.isEmpty() || description.isBlank()) {
+                        descriptionError = true
+                        hasError = true
+                    }
                     // Insert note into the DB
-                    if (title.isNotEmpty() && description.isNotEmpty()) {
+                    if (!hasError) {
+                        val note = Note(
+                            id = 0,
+                            title = title,
+                            description = description,
+                            color = selectedColor.toArgb()
+                        )
                         viewModel.insertNote(note = note)
-                    } else {
-                        return@Button
+
+                        title = ""
+                        description = ""
+                        selectedColor = Color.Black
+                        onDismiss()
                     }
                 }, colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Black,
@@ -57,21 +86,35 @@ fun DisplayDialog(viewModel: NoteViewModel, showDialog: Boolean, onDismiss: () -
                 )
             ) { Text("Cancel") }
         }, title = {
-            Text("Enter Note")
+            Text("Add Note")
         }, text = {
             Column {
                 OutlinedTextField(value = title, onValueChange = {
                     title = it
+                    if (titleError) titleError = false
                 }, label = {
                     Text("Enter Title")
+                }, isError = titleError, supportingText = {
+                    if (titleError) {
+                        Text("Title field is required", color = Color.Red)
+                    }
                 })
                 Spacer(Modifier.height(8.dp))
                 OutlinedTextField(value = description, onValueChange = {
                     description = it
+                    if (descriptionError) descriptionError = false
                 }, label = {
                     Text("Enter Description")
+                }, isError = descriptionError, supportingText = {
+                    if (descriptionError) {
+                        Text("Description field is required", color = Color.Red)
+                    }
                 })
                 Spacer(Modifier.height(16.dp))
+                MyColorPicker(
+                    onColorSelected = { selectedColor = it },
+                    selectedColor = selectedColor
+                )
             }
         })
     }
