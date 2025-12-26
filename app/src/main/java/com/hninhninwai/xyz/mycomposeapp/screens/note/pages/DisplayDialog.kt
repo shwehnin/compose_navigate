@@ -22,7 +22,12 @@ import com.hninhninwai.xyz.mycomposeapp.screens.note.roomdb.Note
 import com.hninhninwai.xyz.mycomposeapp.screens.note.viewmodel.NoteViewModel
 
 @Composable
-fun DisplayDialog(viewModel: NoteViewModel, showDialog: Boolean, onDismiss: () -> Unit) {
+fun DisplayDialog(
+    viewModel: NoteViewModel,
+    showDialog: Boolean,
+    onDismiss: () -> Unit,
+    note: Note? = null
+) {
     var title by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
     var selectedColor by remember { mutableStateOf(Color.Black) }
@@ -30,11 +35,17 @@ fun DisplayDialog(viewModel: NoteViewModel, showDialog: Boolean, onDismiss: () -
     var titleError by remember { mutableStateOf(false) }
     var descriptionError by remember { mutableStateOf(false) }
 
-    LaunchedEffect(showDialog) {
-        if (!showDialog) {
-            title = ""
-            description = ""
-            selectedColor = Color.Black
+    LaunchedEffect(note, showDialog) {
+        if (showDialog) {
+            if (note != null) {
+                title = note.title
+                description = note.description
+                selectedColor = Color(note.color)
+            } else {
+                title = ""
+                description = ""
+                selectedColor = Color.Black
+            }
             titleError = false
             descriptionError = false
         }
@@ -58,13 +69,18 @@ fun DisplayDialog(viewModel: NoteViewModel, showDialog: Boolean, onDismiss: () -
                     }
                     // Insert note into the DB
                     if (!hasError) {
-                        val note = Note(
-                            id = 0,
-                            title = title,
-                            description = description,
+                        val addNote = Note(
+                            id = note?.id ?: 0,
+                            title = title.trim(),
+                            description = description.trim(),
                             color = selectedColor.toArgb()
                         )
-                        viewModel.insertNote(note = note)
+
+                        if (note != null) {
+                            viewModel.updateNote(note = addNote)
+                        } else {
+                            viewModel.insertNote(note = addNote)
+                        }
 
                         title = ""
                         description = ""
@@ -76,7 +92,7 @@ fun DisplayDialog(viewModel: NoteViewModel, showDialog: Boolean, onDismiss: () -
                     contentColor = Color.White,
                 )
             ) {
-                Text("Submit")
+                Text(if (note != null) "Update" else "Submit")
             }
         }, dismissButton = {
             Button(
@@ -86,7 +102,7 @@ fun DisplayDialog(viewModel: NoteViewModel, showDialog: Boolean, onDismiss: () -
                 )
             ) { Text("Cancel") }
         }, title = {
-            Text("Add Note")
+            Text(if (note != null) "Edit Note" else "Add Note")
         }, text = {
             Column {
                 OutlinedTextField(value = title, onValueChange = {

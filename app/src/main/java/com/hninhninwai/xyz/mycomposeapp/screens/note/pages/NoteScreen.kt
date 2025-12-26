@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.hninhninwai.xyz.mycomposeapp.screens.note.roomdb.Note
 
 @Composable
-fun NoteScreen(notes: List<Note>) {
+fun NoteScreen(notes: List<Note>, onNoteClick: (Note) -> Unit) {
     if (notes.isEmpty()) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             Text(
@@ -30,6 +30,6 @@ fun NoteScreen(notes: List<Note>) {
         columns = StaggeredGridCells.Fixed(2),
         contentPadding = PaddingValues(top = 100.dp, start = 8.dp, end = 8.dp, bottom = 8.dp)
     ) {
-        items(notes) { note -> NoteItem(note) }
+        items(notes) { note -> NoteItem(note, onClick = { onNoteClick(note) }) }
     }
 }

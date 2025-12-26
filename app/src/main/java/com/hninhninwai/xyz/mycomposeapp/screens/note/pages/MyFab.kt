@@ -16,9 +16,12 @@ import com.hninhninwai.xyz.mycomposeapp.screens.note.viewmodel.NoteViewModel
 fun MyFab(viewModel: NoteViewModel) {
     var showDialog by remember { mutableStateOf(false) }
 
-    DisplayDialog(viewModel = viewModel, showDialog = showDialog) {
-        showDialog = false
-    }
+    DisplayDialog(
+        viewModel = viewModel,
+        showDialog = showDialog,
+        note = null,
+        onDismiss = { showDialog = false })
+
     FloatingActionButton(
         onClick = { showDialog = true },
         containerColor = Color.Black,

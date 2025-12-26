@@ -12,6 +12,10 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.rememberNavController
@@ -23,8 +27,10 @@ import com.hninhninwai.xyz.mycomposeapp.screens.CategoryScreen
 import com.hninhninwai.xyz.mycomposeapp.screens.constraint_layout.ConstraintLayoutScreen
 import com.hninhninwai.xyz.mycomposeapp.screens.constraint_layout.ConstraintScreen
 import com.hninhninwai.xyz.mycomposeapp.screens.note.pages.MyFab
+import com.hninhninwai.xyz.mycomposeapp.screens.note.pages.NoteDetailScreen
 import com.hninhninwai.xyz.mycomposeapp.screens.note.pages.NoteScreen
 import com.hninhninwai.xyz.mycomposeapp.screens.note.repository.NoteRepository
+import com.hninhninwai.xyz.mycomposeapp.screens.note.roomdb.Note
 import com.hninhninwai.xyz.mycomposeapp.screens.note.roomdb.NoteDB
 import com.hninhninwai.xyz.mycomposeapp.screens.note.viewmodel.NoteViewModel
 import com.hninhninwai.xyz.mycomposeapp.screens.note.viewmodel.NoteViewModelFactory
@@ -59,20 +65,29 @@ class MainActivity : ComponentActivity() {
 //            ConstraintLayoutScreen()
 //            ConstraintScreen()
 
-            Scaffold(
-                topBar = {
-                    TopAppBar(
-                        title = { Text("Note List") }, colors = TopAppBarDefaults.topAppBarColors(
-                            containerColor = Color.Black,
-                            titleContentColor = Color.White
+            var selectedNoteId by remember { mutableIntStateOf(-1) }
+            if (selectedNoteId != -1) {
+                NoteDetailScreen(
+                    noteId = selectedNoteId!!,
+                    viewModel = noteViewModel,
+                    onNavigateBack = { selectedNoteId = -1 })
+            } else {
+                Scaffold(
+                    topBar = {
+                        TopAppBar(
+                            title = { Text("Note List") },
+                            colors = TopAppBarDefaults.topAppBarColors(
+                                containerColor = Color.Black,
+                                titleContentColor = Color.White
+                            )
                         )
-                    )
-                },
-                floatingActionButton = {
-                    MyFab(viewModel = noteViewModel)
-                }) {
-                val notes by noteViewModel.getAllNotes.observeAsState(emptyList())
-                NoteScreen(notes)
+                    },
+                    floatingActionButton = {
+                        MyFab(viewModel = noteViewModel)
+                    }) {
+                    val notes by noteViewModel.getAllNotes.observeAsState(emptyList())
+                    NoteScreen(notes, onNoteClick = { note -> selectedNoteId = note.id })
+                }
             }
 
         }

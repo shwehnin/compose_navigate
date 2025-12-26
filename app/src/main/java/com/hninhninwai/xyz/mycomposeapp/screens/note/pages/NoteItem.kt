@@ -1,5 +1,6 @@
 package com.hninhninwai.xyz.mycomposeapp.screens.note.pages
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,9 +18,12 @@ import androidx.compose.ui.unit.dp
 import com.hninhninwai.xyz.mycomposeapp.screens.note.roomdb.Note
 
 @Composable
-fun NoteItem(note: Note) {
-    Card(modifier = Modifier.padding(4.dp),
-        elevation = CardDefaults.cardElevation(8.dp), colors = CardDefaults.cardColors(
+fun NoteItem(note: Note, onClick: () -> Unit) {
+    Card(
+        modifier = Modifier
+            .padding(4.dp)
+            .clickable(onClick = onClick),
+        elevation = CardDefaults.cardElevation(4.dp), colors = CardDefaults.cardColors(
             containerColor = Color(note.color)
         )
     ) {
@@ -38,7 +42,7 @@ fun NoteItem(note: Note) {
             Text(
                 note.description,
                 style = MaterialTheme.typography.bodyMedium,
-                color = Color.Gray
+                color = Color.White.copy(alpha = 0.9f)
             )
         }
     }
