@@ -18,7 +18,7 @@ import com.hninhninwai.xyz.mycomposeapp.screens.note.roomdb.Note
 
 @Composable
 fun NoteItem(note: Note) {
-    Card(
+    Card(modifier = Modifier.padding(4.dp),
         elevation = CardDefaults.cardElevation(8.dp), colors = CardDefaults.cardColors(
             containerColor = Color(note.color)
         )
@@ -31,12 +31,14 @@ fun NoteItem(note: Note) {
             Text(
                 note.title,
                 style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = Color.White
             )
             Spacer(Modifier.height(6.dp))
             Text(
                 note.description,
                 style = MaterialTheme.typography.bodyMedium,
+                color = Color.Gray
             )
         }
     }

@@ -28,7 +28,7 @@ fun NoteScreen(notes: List<Note>) {
     }
     LazyVerticalStaggeredGrid(
         columns = StaggeredGridCells.Fixed(2),
-        contentPadding = PaddingValues(16.dp)
+        contentPadding = PaddingValues(top = 100.dp, start = 8.dp, end = 8.dp, bottom = 8.dp)
     ) {
         items(notes) { note -> NoteItem(note) }
     }
